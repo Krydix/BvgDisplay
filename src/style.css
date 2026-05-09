@@ -91,3 +91,22 @@ body.dark {
 body.dark .departure-time.now {
     color: black;
 }
+
+.back-link {
+    position: fixed;
+    top: 0.3em;
+    left: 0.4em;
+    font-size: 2vh;
+    color: #888;
+    text-decoration: none;
+    z-index: 10;
+    line-height: 1;
+}
+
+.back-link:hover {
+    color: #333;
+}
+
+body.dark .back-link:hover {
+    color: #ccc;
+}

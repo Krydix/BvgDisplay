@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haltestellensuche</title>
+    <link rel="stylesheet" href="search.css">
+    <template id="result-item">
+        <li class="result">
+            <a class="result-link" href="#">
+                <span class="result-name"></span>
+                <span class="result-badges"></span>
+            </a>
+        </li>
+    </template>
+</head>
+<body>
+    <header>
+        <h1>Abfahrten</h1>
+        <p class="subtitle">Haltestelle suchen</p>
+        <div class="search-box">
+            <input
+                id="search-input"
+                type="search"
+                placeholder="z.B. Alexanderplatz"
+                autocomplete="off"
+                autofocus
+            >
+        </div>
+    </header>
+    <main>
+        <ul id="results" class="results" aria-live="polite"></ul>
+        <p id="hint" class="hint">Gib einen Haltestellennamen ein.</p>
+    </main>
+    <script src="search.js" type="module"></script>
+</body>
+</html>

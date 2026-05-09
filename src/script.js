@@ -1,5 +1,5 @@
 const baseUrl = "https://v6.bvg.transport.rest";
-const stopId = "900181503";
+const stopId = new URLSearchParams(window.location.search).get("stop");
 const resultCount = 6;
 
 const coordinates = {
@@ -16,17 +16,33 @@ let isValidAspectRatio;
 let nodeCount = 0;
 
 document.addEventListener("DOMContentLoaded", async () => {
+    if (!stopId) {
+        window.location.href = "search.html";
+        return;
+    }
+
     body = document.querySelector("body");
     container = document.querySelector("main");
     template = document.querySelector("#departure");
     nowTemplate = document.querySelector("#now");
 
+    await loadStopName();
     await checkAspectRatio();
     setInterval(update, 30 * 1000); // Refresh every 30 seconds
 });
 
 window.addEventListener("resize", debounce(checkAspectRatio, 500));
 window.addEventListener("orientationchange", debounce(checkAspectRatio, 500));
+
+async function loadStopName() {
+    try {
+        const response = await fetch(`${baseUrl}/stops/${encodeURIComponent(stopId)}`);
+        const stop = await response.json();
+        document.title = `Abfahrten ${stop.name}`;
+    } catch {
+        // keep default title
+    }
+}
 
 async function checkAspectRatio() {
     const {width, height} = window.visualViewport;
