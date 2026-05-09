@@ -2,6 +2,8 @@
 
 > **Forked from [fsr4/babsi](https://github.com/fsr4/babsi)** — all credit for the original departure board concept goes there.
 
+**Live: [krydix.github.io/BvgDisplay/search.html](https://krydix.github.io/BvgDisplay/search.html)**
+
 Shows departure information for any stop on the BVG/VBB network, hosted as a static site on GitHub Pages.
 
 ## Changes in this fork
