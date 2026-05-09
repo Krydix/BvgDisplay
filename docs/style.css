@@ -29,7 +29,8 @@ article:last-of-type {
     display: flex;
     align-items: center;
     height: 100%;
-    flex-shrink: 0;
+    width: 20vw;
+    max-width: 5em;
 }
 
 .line-info > img {

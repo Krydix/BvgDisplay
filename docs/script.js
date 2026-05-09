@@ -131,7 +131,7 @@ async function fetchDepartures() {
         return {
             id: d.tripId,
             type: d.line.product,
-            name: d.line.name,
+            name: d.line.product === 'express' ? d.line.productName : d.line.name,
             destination: d.direction,
             minsUntilDeparture: getDepartureTime(d.when)
         };
