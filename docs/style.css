@@ -29,8 +29,7 @@ article:last-of-type {
     display: flex;
     align-items: center;
     height: 100%;
-    width: 20vw;
-    max-width: 5em;
+    flex-shrink: 0;
 }
 
 .line-info > img {
@@ -40,6 +39,7 @@ article:last-of-type {
 
 .line-info > span {
     margin-left: 0.2em;
+    white-space: nowrap;
 }
 
 .line-info > span, .departure-time {
@@ -50,6 +50,9 @@ article:last-of-type {
 .destination {
     flex-grow: 1;
     padding-left: 6vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .departure-time.now {
