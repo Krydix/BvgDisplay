@@ -77,28 +77,31 @@ async function update() {
 }
 
 async function checkDaytime() {
-    if (await isDaytime())
+    try {
+        body.classList.toggle("dark", !(await isDaytime()));
+    } catch (error) {
+        console.error("Unable to determine daytime", error);
         body.classList.remove("dark");
-    else
-        body.classList.add("dark");
+    }
 }
 
 async function isDaytime() {
-    const sunTimes = await fetchSunTimes();
-    const now = new Date();
+    const { sunrise, sunset } = await fetchSunTimes();
+    const now = Date.now();
 
-    const sunrise = new Date(`${now.toLocaleDateString("en")} ${sunTimes.sunrise}`);
-    const sunset = new Date(`${now.toLocaleDateString("en")} ${sunTimes.sunset}`);
-
-    return (now.getTime() > sunrise.getTime() && now.getTime() < sunset.getTime());
+    return now >= sunrise.getTime() && now < sunset.getTime();
 }
 
 async function fetchSunTimes() {
-    const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.lng}`);
+    const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.lng}&formatted=0`);
     const sunTimes = await response.json();
+
+    if (sunTimes.status !== "OK" || !sunTimes.results?.sunrise || !sunTimes.results?.sunset)
+        throw new Error("Sunrise API returned no usable times");
+
     return {
-        sunrise: sunTimes.sunrise,
-        sunset: sunTimes.sunset
+        sunrise: new Date(sunTimes.results.sunrise),
+        sunset: new Date(sunTimes.results.sunset)
     };
 }
 
